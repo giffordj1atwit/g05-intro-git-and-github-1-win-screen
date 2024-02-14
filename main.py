@@ -77,6 +77,7 @@ def main():
     player.x = screen_width // 2
     player.y = screen_height // 2
     move_player(player.x,player.y,' ')
+    won = False
 
     inputCmd = ''
     #GAME LOOP
@@ -99,6 +100,8 @@ def main():
             if currentRoom.title == 'HOME':
                 messageLog = "YOU WIN!"
                 player.score += 5000
+                won = True
+                break
             if currentRoom.unlocksRoom:
                 rm.getRoomByName(currentRoom.roomUnlocks).unlockAll()
                 messageLog = currentRoom.roomUnlocksDesc.replace('\\n','\n') + "\n"
@@ -216,6 +219,9 @@ def main():
                     break
             
     #after quit
+    if won:
+        clear_screen()
+        Scenes().ending_page()
     print ("goodbye.")
 
 if (__name__) == '__main__':
